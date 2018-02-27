@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>12-video-frames</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <style media="screen">
+    #movieclip {
+      display: none;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="640" height="480"></canvas>
+  <video id="movieclip" width="320" height="240">
+    <source src="../common/movie.mp4" type="video/mp4">
+    <p>This brower does not support this <code>video</code> element.</p>
+  </video>
+  <script type="text/javascript">
+    var video = document.getElementById('movieclip');
+    var videoWidth;
+    var videoHeight;
+    video.addEventListener("loadedmetadata", function() {
+      var tol = this.duration; //获取总时长
+      console.log("时长：" + tol);
+      console.log("宽度" + this.videoWidth);
+      videoWidth = this.videoWidth;
+      console.log("高度" + this.videoHeight);
+      videoHeight = this.videoHeight;
+    });
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      video.width = videoWidth;
+      video.height = videoHeight;
+      video.play();
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        // context.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, video.height / video.width * canvas.width);
+        context.drawImage(video, 0, 0, video.width, video.height, 0, 0, (video.width / video.height) * canvas.height, canvas.height);
+      })();
+    };
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>16-spray-paint</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="640" height="360"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var mouse = utils.captureMouse(canvas);
+      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      var pixels = imageData.data;
+      var brush_size = 25;
+      var brush_density = 80;
+      var brush_color;
+
+      function onMouseMove() {
+        for (var i = 0; i < brush_density; i++) {
+          var angle = Math.random() * Math.PI * 2;
+          var radius = Math.random() * brush_size;
+          var xpos = (mouse.x + Math.cos(angle) * radius) | 0;
+          var ypos = (mouse.y + Math.sin(angle) * radius) | 0;
+          var offset = (xpos + ypos * imageData.width) * 4;
+          pixels[offset] = brush_color >> 16 & 0xff;
+          pixels[offset + 1] = brush_color >> 8 & 0xff;
+          pixels[offset + 2] = brush_color & 0xff;
+          pixels[offset + 3] = 255;
+        }
+        context.putImageData(imageData, 0, 0);
+      }
+      canvas.addEventListener('mousedown', function() {
+        brush_color = utils.parseColor(Math.random() * 0xffffff, true);
+        canvas.addEventListener('mousemove', onMouseMove, false);
+      }, false);
+      canvas.addEventListener('mouseup', function() {
+        canvas.removeEventListener('mousemove', onMouseMove, false);
+      }, false);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>11-embed-image</title>
+  <link rel="stylesheet" href="../common/style.css">
+  <style media="screen">
+    #picture {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <img src="../common/image.png" id="picture">
+  <script type="text/javascript">
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var image = document.getElementById('picture');
+      context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, image.height / image.width * canvas.width);
+    };
+  </script>
+</body>
+
+</html>

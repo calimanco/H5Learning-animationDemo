@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>08-gradient-fill-2</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var pt1 = {
+        x: 100,
+        y: 100
+      };
+      var pt2 = {
+        x: 200,
+        y: 200
+      };
+      var gradient = context.createLinearGradient(pt1.x, pt1.y, pt2.x, pt2.y);
+
+      gradient.addColorStop(0, '#000000');
+      gradient.addColorStop(0.5, 'rgba(0,0,0,0)');
+      gradient.addColorStop(1, '#ff0000');
+      context.fillStyle = gradient;
+      context.fillRect(100, 100, 100, 100);
+    }
+  </script>
+</body>
+
+</html>

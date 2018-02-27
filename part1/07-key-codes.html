@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07-key-codes</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <script type="text/javascript">
+    window.onload = function() {
+      function onKeyboardEvent(event) {
+        switch (event.keyCode) {
+          case 38:
+            console.log('up!');
+            break;
+          case 40:
+            console.log('down!');
+            break;
+          case 37:
+            console.log('left!');
+            break;
+          case 39:
+            console.log('right!');
+            break;
+          default:
+            console.log(event.keyCode);
+        }
+      }
+
+      window.addEventListener('keydown', onKeyboardEvent, false);
+    };
+  </script>
+</body>
+
+</html>

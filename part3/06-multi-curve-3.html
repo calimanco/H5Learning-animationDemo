@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-multi-curve-3</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var points = [];
+      var numPoints = 9;
+      ctrlPoint = {};
+      ctrlPoint1 = {};
+
+      for (var i = 0; i < numPoints; i++) {
+        points.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+        });
+      }
+
+      ctrlPoint1.x = (points[0].x + points[numPoints - 1].x) / 2;
+      ctrlPoint1.y = (points[0].x + points[numPoints - 1].y) / 2;
+      context.beginPath();
+      context.fillStyle = '#ff0000';
+      context.moveTo(ctrlPoint1.x, ctrlPoint1.y);
+
+      for (i = 0; i < numPoints - 1; i++) {
+        ctrlPoint.x = (points[i].x + points[i + 1].x) / 2;
+        ctrlPoint.y = (points[i].y + points[i + 1].y) / 2;
+        context.quadraticCurveTo(points[i].x, points[i].y, ctrlPoint.x, ctrlPoint.y);
+      }
+      context.quadraticCurveTo(points[i].x, points[i].y, ctrlPoint1.x, ctrlPoint1.y);
+      context.stroke();
+      context.fill();
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>14-grayscale</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <button type="button" name="button" onclick="change()">点我变色</button>
+  <script type="text/javascript">
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+
+      for (var i = 0; i < canvas.width; i += 10) {
+        context.fillStyle = (i % 20 === 0) ? '#f00' : ((i % 30 === 0) ? '#0f0' : '#00f');
+        context.fillRect(i, 0, 10, canvas.height);
+      }
+    };
+
+    function change() {
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      var pixels = imageData.data;
+
+      for (var offset = 0, len = pixels.length; offset < len; offset += 4) {
+        var r = pixels[offset];
+        var g = pixels[offset + 1];
+        var b = pixels[offset + 2];
+        var y = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+        pixels[offset] = pixels[offset + 1] = pixels[offset + 2] = y;
+      }
+      context.putImageData(imageData, 0, 0);
+    }
+  </script>
+</body>
+
+</html>
