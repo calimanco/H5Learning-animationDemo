@@ -14,19 +14,19 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var ball = new Ball();
-      var vx = 0;
-      var vy = 0;
-      var ax = 0;
-      var ay = 0;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      let vx = 0;
+      let vy = 0;
+      let ax = 0;
+      let ay = 0;
 
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
 
-      window.addEventListener('keydown', function(event) {
+      window.addEventListener('keydown', (event) => {
         switch (event.keyCode) {
           case 37:
             ax = -0.1;
@@ -43,7 +43,7 @@
           default:
         }
       }, false);
-      window.addEventListener('keyup', function() {
+      window.addEventListener('keyup', () => {
         ax = 0;
         ay = 0;
       }, false);
@@ -56,8 +56,8 @@
         ball.x += vx;
         ball.y += vy;
         ball.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

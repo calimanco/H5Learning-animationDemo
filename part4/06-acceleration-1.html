@@ -14,12 +14,12 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var ball = new Ball();
-      var vx = 1;
-      var ax = 0.1;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      let vx = 1;
+      const ax = 0.1;
 
       ball.x = 50;
       ball.y = 100;
@@ -30,8 +30,8 @@
         vx += ax;
         ball.x += vx;
         ball.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

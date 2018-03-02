@@ -8,7 +8,7 @@
   <title>11-ship-sim</title>
   <link rel="stylesheet" href="../common/style.css">
   <style media="screen">
-    #canvas{
+    #canvas {
       background-color: #000;
     }
   </style>
@@ -19,19 +19,19 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ship.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var ship = new Ship();
-      var vr = 0;
-      var vx = 0;
-      var vy = 0;
-      var thrust = 0;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ship = new Ship();
+      let vr = 0;
+      let vx = 0;
+      let vy = 0;
+      let thrust = 0;
 
       ship.x = canvas.width / 2;
       ship.y = canvas.height / 2;
 
-      window.addEventListener('keydown', function(event) {
+      window.addEventListener('keydown', (event) => {
         switch (event.keyCode) {
           case 37:
             vr = -3;
@@ -46,7 +46,7 @@
           default:
         }
       }, false);
-      window.addEventListener('keyup', function() {
+      window.addEventListener('keyup', () => {
         vr = 0;
         thrust = 0;
         ship.showFlame = false;
@@ -56,16 +56,16 @@
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         ship.rotation += vr * Math.PI / 180;
-        var angle = ship.rotation;
-        var ax = Math.cos(angle) * thrust;
-        var ay = Math.sin(angle) * thrust;
+        const angle = ship.rotation;
+        const ax = Math.cos(angle) * thrust;
+        const ay = Math.sin(angle) * thrust;
         vx += ax;
         vy += ay;
         ship.x += vx;
         ship.y += vy;
         ship.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

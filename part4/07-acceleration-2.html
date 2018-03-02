@@ -14,35 +14,34 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var ball = new Ball();
-      var vx = 0;
-      var ax = 0;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      let vx = 0;
+      let ax = 0;
 
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
 
-      window.addEventListener('keydown', function(event) {
+      window.addEventListener('keydown', (event) => {
         if (event.keyCode === 37) {
           ax = -0.1;
         } else if (event.keyCode === 39) {
           ax = 0.1;
         }
       }, false);
-      window.addEventListener('keyup', function() {
-          ax = 0;
-        }, false)
-        (function drawFrame() {
-          window.requestAnimationFrame(drawFrame, canvas);
-          context.clearRect(0, 0, canvas.width, canvas.height);
+      window.addEventListener('keyup', () => {
+        ax = 0;
+      }, false)(function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-          vx += ax;
-          ball.x += vx;
-          ball.draw(context);
-        }())
-    }
+        vx += ax;
+        ball.x += vx;
+        ball.draw(context);
+      }());
+    };
   </script>
 </body>
 

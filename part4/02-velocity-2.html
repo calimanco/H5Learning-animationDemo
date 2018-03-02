@@ -14,24 +14,24 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var ball = new Ball();
-      var vx = 1;
-      var vy = 1;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      const vx = 1;
+      const vy = 1;
 
       ball.x = 50;
       ball.y = 100;
-      (function drawFrame(){
+      (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
         ball.x += vx;
         ball.y += vy;
         ball.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

@@ -14,24 +14,24 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var mouse = utils.captureMouse(canvas);
-      var arrow = new Arrow();
-      var vx = 0;
-      var vy = 0;
-      var force = 0.02;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const arrow = new Arrow();
+      let vx = 0;
+      let vy = 0;
+      const force = 0.02;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        var dx = mouse.x - arrow.x;
-        var dy = mouse.y - arrow.y;
-        var angle = Math.atan2(dy, dx);
-        var ax = Math.cos(angle) * force;
-        var ay = Math.sin(angle) * force;
+        const dx = mouse.x - arrow.x;
+        const dy = mouse.y - arrow.y;
+        const angle = Math.atan2(dy, dx);
+        const ax = Math.cos(angle) * force;
+        const ay = Math.sin(angle) * force;
 
         arrow.rotation = angle;
         vx += ax;
@@ -39,8 +39,8 @@
         arrow.x += vx;
         arrow.y += vy;
         arrow.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

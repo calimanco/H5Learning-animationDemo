@@ -14,12 +14,12 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var mouse = utils.captureMouse(canvas);
-      var arrow = new Arrow();
-      var vr = 1;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const arrow = new Arrow();
+      const vr = 1;
 
       arrow.x = canvas.width / 2;
       arrow.y = canvas.height / 2;
@@ -28,10 +28,10 @@
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        arrow.rotation += vr * Math.PI / 180;;
+        arrow.rotation += vr * Math.PI / 180;
         arrow.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 
