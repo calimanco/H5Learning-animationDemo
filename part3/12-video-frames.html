@@ -22,20 +22,20 @@
     <p>This brower does not support this <code>video</code> element.</p>
   </video>
   <script type="text/javascript">
-    var video = document.getElementById('movieclip');
-    var videoWidth;
-    var videoHeight;
-    video.addEventListener("loadedmetadata", function() {
-      var tol = this.duration; //获取总时长
-      console.log("时长：" + tol);
-      console.log("宽度" + this.videoWidth);
+    const video = document.getElementById('movieclip');
+    let videoWidth;
+    let videoHeight;
+    video.addEventListener('loadedmetadata', function () {
+      const tol = this.duration; // 获取总时长
+      console.log(`时长：${tol}`);
+      console.log(`宽度${this.videoWidth}`);
       videoWidth = this.videoWidth;
-      console.log("高度" + this.videoHeight);
+      console.log(`高度${this.videoHeight}`);
       videoHeight = this.videoHeight;
     });
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
       video.width = videoWidth;
       video.height = videoHeight;
       video.play();
@@ -43,7 +43,7 @@
         window.requestAnimationFrame(drawFrame, canvas);
         // context.drawImage(video, 0, 0, video.width, video.height, 0, 0, canvas.width, video.height / video.width * canvas.width);
         context.drawImage(video, 0, 0, video.width, video.height, 0, 0, (video.width / video.height) * canvas.height, canvas.height);
-      })();
+      }());
     };
   </script>
 </body>

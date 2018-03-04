@@ -13,26 +13,26 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var c1 = {
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const c1 = {
         x: 100,
         y: 100,
-        radius: 0
+        radius: 0,
       };
-      var c2 = {
+      const c2 = {
         x: 100,
         y: 100,
-        radius: 50
+        radius: 50,
       };
-      var gradient = context.createRadialGradient(c1.x, c1.y, c1.radius, c2.x, c2.y, c2.radius);
+      const gradient = context.createRadialGradient(c1.x, c1.y, c1.radius, c2.x, c2.y, c2.radius);
 
       gradient.addColorStop(0, '#000000');
       gradient.addColorStop(1, '#ff0000');
       context.fillStyle = gradient;
       context.fillRect(0, 0, 200, 200);
-    }
+    };
   </script>
 </body>
 

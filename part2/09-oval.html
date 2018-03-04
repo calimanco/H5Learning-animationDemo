@@ -14,16 +14,16 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      let canvas = document.getElementById('canvas');
-      let context = canvas.getContext('2d');
-      let ball = new Ball();
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
       let angle = 0;
-      let centerX = canvas.width / 2;
-      let centerY = canvas.height / 2;
-      let radiusX = 150;
-      let radiusY = 100;
-      let speed = 0.05;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radiusX = 150;
+      const radiusY = 100;
+      const speed = 0.05;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);

@@ -13,12 +13,12 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var mouse = utils.captureMouse(canvas);
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const mouse = utils.captureMouse(canvas);
 
-      canvas.addEventListener('mousedown', function() {
-        console.log('x:' + mouse.x + ', y:' + mouse.y);
+      canvas.addEventListener('mousedown', () => {
+        console.log(`x:${mouse.x}, y:${mouse.y}`);
       }, false);
     };
   </script>

@@ -13,23 +13,23 @@
   <canvas id="canvas" width="640" height="360"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var mouse = utils.captureMouse(canvas);
-      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      var pixels = imageData.data;
-      var brush_size = 25;
-      var brush_density = 80;
-      var brush_color;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = imageData.data;
+      const brush_size = 25;
+      const brush_density = 80;
+      let brush_color;
 
       function onMouseMove() {
-        for (var i = 0; i < brush_density; i++) {
-          var angle = Math.random() * Math.PI * 2;
-          var radius = Math.random() * brush_size;
-          var xpos = (mouse.x + Math.cos(angle) * radius) | 0;
-          var ypos = (mouse.y + Math.sin(angle) * radius) | 0;
-          var offset = (xpos + ypos * imageData.width) * 4;
+        for (let i = 0; i < brush_density; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const radius = Math.random() * brush_size;
+          const xpos = (mouse.x + Math.cos(angle) * radius) | 0;
+          const ypos = (mouse.y + Math.sin(angle) * radius) | 0;
+          const offset = (xpos + ypos * imageData.width) * 4;
           pixels[offset] = brush_color >> 16 & 0xff;
           pixels[offset + 1] = brush_color >> 8 & 0xff;
           pixels[offset + 2] = brush_color & 0xff;
@@ -37,14 +37,14 @@
         }
         context.putImageData(imageData, 0, 0);
       }
-      canvas.addEventListener('mousedown', function() {
+      canvas.addEventListener('mousedown', () => {
         brush_color = utils.parseColor(Math.random() * 0xffffff, true);
         canvas.addEventListener('mousemove', onMouseMove, false);
       }, false);
-      canvas.addEventListener('mouseup', function() {
+      canvas.addEventListener('mouseup', () => {
         canvas.removeEventListener('mousemove', onMouseMove, false);
       }, false);
-    }
+    };
   </script>
 </body>
 

@@ -14,17 +14,17 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      let canvas = document.getElementById('canvas');
-      let context = canvas.getContext('2d');
-      let ball = new Ball();
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
       let angle = 0;
       // 运动中心
-      let clientY = 200;
+      const clientY = 200;
       // 范围
-      let range = 50;
+      const range = 50;
       // 速度
-      let speed = 0.05;
+      const speed = 0.05;
 
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
@@ -36,8 +36,8 @@
         ball.y = clientY / 2 + Math.sin(angle) * range;
         angle += speed;
         ball.draw(context);
-      }())
-    }
+      }());
+    };
   </script>
 </body>
 

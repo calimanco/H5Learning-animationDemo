@@ -13,11 +13,11 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var points = [];
-      var numPoints = 9;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const points = [];
+      const numPoints = 9;
       ctrlPoint = {};
       ctrlPoint1 = {};
 
@@ -42,7 +42,7 @@
       context.quadraticCurveTo(points[i].x, points[i].y, ctrlPoint1.x, ctrlPoint1.y);
       context.stroke();
       context.fill();
-    }
+    };
   </script>
 </body>
 

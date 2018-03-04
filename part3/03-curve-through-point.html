@@ -13,25 +13,25 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var mouse = utils.captureMouse(canvas);
-      var x0 = 100;
-      var y0 = 200;
-      var x2 = 300;
-      var y2 = 200;
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const x0 = 100;
+      const y0 = 200;
+      const x2 = 300;
+      const y2 = 200;
 
-      canvas.addEventListener('mousemove', function() {
+      canvas.addEventListener('mousemove', () => {
         context.clearRect(0, 0, canvas.width, canvas.height);
-        var x1 = mouse.x * 2 - (x0 + x2) / 2;
-        var y1 = mouse.y * 2 - (y0 + y2) / 2;
+        const x1 = mouse.x * 2 - (x0 + x2) / 2;
+        const y1 = mouse.y * 2 - (y0 + y2) / 2;
         context.beginPath();
         context.moveTo(x0, y0);
         context.quadraticCurveTo(x1, y1, x2, y2);
         context.stroke();
       }, false);
-    }
+    };
   </script>
 </body>
 

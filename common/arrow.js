@@ -1,30 +1,41 @@
 /**
- * 绘制箭头
+ * 箭头类
+ * @class Representing a arrow.
  */
-function Arrow() {
-  this.x = 0;
-  this.y = 0;
-  this.color = '#ffff00';
-  this.rotation = 0;
+/* eslint no-unused-vars: ["error", { "varsIgnorePattern": "Arrow" }] */
+class Arrow {
+  /**
+    * Create a arrow.
+    */
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.color = '#ffff00';
+    this.rotation = 0;
+  }
+  /**
+   * Draw the arrow.
+   * @param {Object} _context - The canvas context.
+   */
+  draw(_context) {
+    const context = _context;
+    context.save();
+    context.translate(this.x, this.y);
+    context.rotate(this.rotation);
+    context.lineWidth = 2;
+    context.fillStyle = this.color;
+    context.beginPath();
+    context.moveTo(-50, -25);
+    context.lineTo(0, -25);
+    context.lineTo(0, -50);
+    context.lineTo(50, 0);
+    context.lineTo(0, 50);
+    context.lineTo(0, 25);
+    context.lineTo(-50, 25);
+    context.lineTo(-50, -25);
+    context.closePath();
+    context.fill();
+    context.stroke();
+    context.restore();
+  }
 }
-
-Arrow.prototype.draw = function(context) {
-  context.save();
-  context.translate(this.x, this.y);
-  context.rotate(this.rotation);
-  context.lineWidth = 2;
-  context.fillStyle = this.color;
-  context.beginPath();
-  context.moveTo(-50, -25);
-  context.lineTo(0, -25);
-  context.lineTo(0, -50);
-  context.lineTo(50, 0);
-  context.lineTo(0, 50);
-  context.lineTo(0, 25);
-  context.lineTo(-50, 25);
-  context.lineTo(-50, -25);
-  context.closePath();
-  context.fill();
-  context.stroke();
-  context.restore();
-};

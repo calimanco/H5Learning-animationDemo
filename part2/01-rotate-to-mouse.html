@@ -14,11 +14,11 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      let canvas = document.getElementById('canvas');
-      let context = canvas.getContext('2d');
-      let mouse = utils.captureMouse(canvas);
-      let arrow = new Arrow();
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const arrow = new Arrow();
 
       arrow.x = canvas.width / 2;
       arrow.y = canvas.height / 2;
@@ -26,13 +26,13 @@
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
-        let dx = mouse.x - arrow.x;
-        let dy = mouse.y - arrow.y;
+        const dx = mouse.x - arrow.x;
+        const dy = mouse.y - arrow.y;
 
         arrow.rotation = Math.atan2(dy, dx);
         arrow.draw(context);
       }());
-    }
+    };
     for (let angle = 0; angle < Math.PI * 2; angle += 0.1) {
       console.log(Math.sin(angle));
     }

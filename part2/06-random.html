@@ -14,13 +14,13 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      let canvas = document.getElementById('canvas');
-      let context = canvas.getContext('2d');
-      let ball = new Ball();
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
       let angleX = 0;
       let angleY = 0;
-      let range = 100;
+      const range = 100;
       centerX = canvas.width / 2;
       centerY = canvas.height / 2;
       xspeed = 0.2;
@@ -35,7 +35,7 @@
         angleY += yspeed;
         ball.draw(context);
       }());
-    }
+    };
   </script>
 </body>
 

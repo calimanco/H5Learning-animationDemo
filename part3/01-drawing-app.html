@@ -13,24 +13,24 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var mouse = utils.captureMouse(canvas);
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
 
       function onMouseMove() {
         context.lineTo(mouse.x, mouse.y);
         context.stroke();
       }
-      canvas.addEventListener('mousedown', function() {
+      canvas.addEventListener('mousedown', () => {
         context.beginPath();
         context.moveTo(mouse.x, mouse.y);
         canvas.addEventListener('mousemove', onMouseMove, false);
       }, false);
-      canvas.addEventListener('mouseup', function() {
+      canvas.addEventListener('mouseup', () => {
         canvas.removeEventListener('mousemove', onMouseMove, false);
       }, false);
-    }
+    };
   </script>
 </body>
 

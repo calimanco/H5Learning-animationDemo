@@ -14,14 +14,14 @@
   <textarea name="textarea" rows="8" cols="80" id="log"></textarea>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      let canvas = document.getElementById('canvas');
-      let context = canvas.getContext('2d');
-      let mouse = utils.captureMouse(canvas);
-      let log = document.getElementById('log');
-      let rect = {
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const log = document.getElementById('log');
+      const rect = {
         x: canvas.width / 2,
-        y: canvas.height / 2
+        y: canvas.height / 2,
       };
       // let rectX = canvas.width/2;
       // let rectY = canvas.height/2;
@@ -30,9 +30,9 @@
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        let dx = rect.x - mouse.x;
-        let dy = rect.y - mouse.y;
-        let dist = Math.sqrt(dx * dx + dy * dy);
+        const dx = rect.x - mouse.x;
+        const dy = rect.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
         context.fillStyle = '#000000';
         context.fillRect(rect.x - 5, rect.y - 5, 10, 10);
@@ -43,12 +43,12 @@
         context.closePath();
         context.stroke();
 
-        log.value = 'distance: ' + dist;
+        log.value = `distance: ${dist}`;
 
         // console.log(rect);
         // console.log(rectX);
         // console.log(rectY);
-      }())
+      }());
     };
   </script>
 </body>

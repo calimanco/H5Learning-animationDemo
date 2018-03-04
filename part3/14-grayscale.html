@@ -13,27 +13,27 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <button type="button" name="button" onclick="change()">点我变色</button>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
 
-      for (var i = 0; i < canvas.width; i += 10) {
+      for (let i = 0; i < canvas.width; i += 10) {
         context.fillStyle = (i % 20 === 0) ? '#f00' : ((i % 30 === 0) ? '#0f0' : '#00f');
         context.fillRect(i, 0, 10, canvas.height);
       }
     };
 
     function change() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      var pixels = imageData.data;
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = imageData.data;
 
-      for (var offset = 0, len = pixels.length; offset < len; offset += 4) {
-        var r = pixels[offset];
-        var g = pixels[offset + 1];
-        var b = pixels[offset + 2];
-        var y = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
+      for (let offset = 0, len = pixels.length; offset < len; offset += 4) {
+        const r = pixels[offset];
+        const g = pixels[offset + 1];
+        const b = pixels[offset + 2];
+        const y = (0.2126 * r) + (0.7152 * g) + (0.0722 * b);
         pixels[offset] = pixels[offset + 1] = pixels[offset + 2] = y;
       }
       context.putImageData(imageData, 0, 0);

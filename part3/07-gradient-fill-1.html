@@ -13,24 +13,24 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
-      var pt1 = {
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const pt1 = {
         x: 0,
-        y: 0
+        y: 0,
       };
-      var pt2 = {
+      const pt2 = {
         x: 100,
-        y: 100
+        y: 100,
       };
-      var gradient = context.createLinearGradient(pt1.x, pt1.y, pt2.x, pt2.y);
+      const gradient = context.createLinearGradient(pt1.x, pt1.y, pt2.x, pt2.y);
 
       gradient.addColorStop(0, '#ffffff');
       gradient.addColorStop(1, '#ff0000');
       context.fillStyle = gradient;
       context.fillRect(0, 0, 100, 100);
-    }
+    };
   </script>
 </body>
 
