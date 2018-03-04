@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07-friction-2</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      let vx = Math.random() * 10 - 5;
+      let vy = Math.random() * 10 - 5;
+      friction = 0.95;
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        const speed = Math.sqrt(vx ** 2 + vy ** 2);
+        const angle = Math.atan2(vy, vx);
+        if (Math.abs(vx) > 0.001) {
+          vx *= friction;
+          ball.x += vx;
+        }
+        if (Math.abs(vy) > 0.001) {
+          vy *= friction;
+          ball.y += vy;
+        }
+        ball.draw(context);
+      }());
+    };
+  </script>
+</body>
+</html>
