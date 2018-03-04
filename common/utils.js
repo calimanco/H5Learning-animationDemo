@@ -1,3 +1,4 @@
+/* eslint no-bitwise: "off" */
 const utils = {};
 utils.captureMouse = function captureMouse(element) {
   const mouse = {
@@ -72,11 +73,12 @@ utils.colorToRGB = function colorToRGB(_color, _alpha) {
   const alpha = (_alpha === undefined) ? 1 : _alpha;
 
   // 提取各颜色的值
-  const r = color >> 16 & 0xFF;
-  const g = color >> 8 & 0xFF;
+  const r = (color >> 16) & 0xFF;
+  const g = (color >> 8) & 0xFF;
   const b = color & 0xFF;
   // 检查透明度，并剔除非法值
-  const a = (alpha < 0) ? 0 : ((alpha > 1) ? 1 : alpha);
+  let a = (alpha < 0) ? 0 : alpha;
+  a = (alpha > 1) ? 1 : alpha;
 
   // 判断是否以rgba表示
   if (a === 1) {
