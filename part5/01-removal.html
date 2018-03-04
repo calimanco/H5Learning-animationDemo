@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01-removal</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <textarea id="log" rows="8" cols="80"></textarea>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const log = document.getElementById('log');
+      const balls = [];
+      numBalls = 10;
+
+      for (let i = 0; i < numBalls; i++) {
+        const ball = new Ball(20);
+        ball.id = `ball${i}`;
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.vx = Math.random() * 2 - 1;
+        ball.vy = Math.random() * 2 - 1;
+        balls.push(ball);
+      }
+
+      function draw(ball, pos) {
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        if (ball.x - ball.radius > canvas.width || ball.x + ball.radius < 0 || ball.y - ball.radius > canvas.height || ball.y + ball.radius < 0) {
+          balls.splice(pos, 1);
+          if (balls.length > 0) {
+            log.value += `Removed ${ball.id}\n`;
+            log.scrollTop = log.scrollHeight;
+          } else {
+            log.value += 'All gone!\n';
+          }
+        }
+        ball.draw(context);
+      }
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        let i = balls.length;
+        while (i--) {
+          draw(balls[i], i);
+        }
+      }());
+    };
+  </script>
+</body>
+
+</html>
