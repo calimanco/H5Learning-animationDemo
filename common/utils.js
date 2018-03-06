@@ -106,3 +106,7 @@ utils.parseColor = function parseColor(_color, toNumber) {
   }
   return color;
 };
+
+utils.containsPoint = function containsPoint(rect, x, y) {
+  return !(x < rect.x || x > rect.x + rect.width || y < rect.y || y > rect.y + rect.height);
+};
