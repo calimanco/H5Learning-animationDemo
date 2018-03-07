@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02-touch-events</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <textarea id="log" rows="8" cols="80"></textarea>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const touch = utils.captureTouch(canvas);
+      const log = document.getElementById('log');
+      const ball = new Ball();
+
+      ball.x = canvas.width / 2;
+      ball.y = canvas.height / 2;
+      ball.draw(context);
+
+      canvas.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        console.log(touch.x);
+        console.log(touch.y);
+        if (utils.containsPoint(ball.getBounds(), touch.x, touch.y)) {
+          log.value = 'in ball: touchstart';
+        } else {
+          log.value = 'canvas: touchstart';
+        }
+      }, false);
+
+      canvas.addEventListener('touchend', (event) => {
+        event.preventDefault();
+        log.value = 'canvas: touchend';
+      }, false);
+
+      canvas.addEventListener('touchmove', (event) => {
+        event.preventDefault();
+        if (utils.containsPoint(ball.getBounds(), touch.x, touch.y)) {
+          log.value = 'in ball: touchmove';
+        } else {
+          log.value = 'canvas: touchmove';
+        }
+      }, false);
+    };
+  </script>
+</body>
+
+</html>

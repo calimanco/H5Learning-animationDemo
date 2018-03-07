@@ -32,8 +32,24 @@ utils.captureTouch = function captureTouch(element) {
     isPressed: false,
   };
 
-  element.addEventListener('touchstart', () => {
+  element.addEventListener('touchstart', (event) => {
     touch.isPressed = true;
+    let x;
+    let y;
+    const touchEvent = event.touches[0]; // 单指触控
+
+    if (touchEvent.pageX || touchEvent.pageY) {
+      x = touchEvent.pageX;
+      y = touchEvent.pageY;
+    } else {
+      x = touchEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+      y = touchEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    }
+    x -= element.offsetLeft;
+    y -= element.offsetTop;
+
+    touch.x = x;
+    touch.y = y;
   }, false);
 
   element.addEventListener('touchend', () => {
