@@ -28,8 +28,6 @@
 
       canvas.addEventListener('touchstart', (event) => {
         event.preventDefault();
-        console.log(touch.x);
-        console.log(touch.y);
         if (utils.containsPoint(ball.getBounds(), touch.x, touch.y)) {
           log.value = 'in ball: touchstart';
         } else {
