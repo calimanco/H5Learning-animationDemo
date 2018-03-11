@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>09-spring-5</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const mouse = utils.captureMouse(canvas);
+      const ball = new Ball();
+      const spring = 0.03;
+      const friction = 0.9;
+      const gravity = 2;
+      let vx = 0;
+      let vy = 0;
+
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        const dx = mouse.x - ball.x;
+        const dy = mouse.y - ball.y;
+        const ax = dx * spring;
+        const ay = dy * spring;
+
+        vx += ax;
+        vy += ay;
+        vy += gravity;
+
+        vx *= friction;
+        vy *= friction;
+
+        ball.x += vx;
+        ball.y += vy;
+
+        context.beginPath();
+        context.moveTo(ball.x, ball.y);
+        context.lineTo(mouse.x, mouse.y);
+        context.stroke();
+        ball.draw(context);
+      }());
+    };
+  </script>
+</body>
+</html>

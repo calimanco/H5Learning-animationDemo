@@ -13,6 +13,8 @@ class Ball {
   constructor(radius = 40, color = '#ff0000') {
     this.x = 0;
     this.y = 0;
+    this.vx = 0;
+    this.vy = 0;
     this.radius = radius;
     this.rotation = 0;
     this.scaleX = 1;
