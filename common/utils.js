@@ -1,5 +1,27 @@
 /* eslint no-bitwise: "off" */
 const utils = {};
+
+// requestAnimationFrame polyfill
+if (!window.requestAnimationFrame) {
+  window.requestAnimationFrame = (window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function timeout(callback) {
+      return window.setTimeout(callback, 1000 / 60);
+    });
+}
+
+// cancelAnimationFrame polyfill
+if (!window.cancelAnimationFrame) {
+  window.cancelAnimationFrame = (window.webkitCancelAnimationFrame ||
+    window.mozCancelAnimationFrame ||
+    window.oCancelAnimationFrame ||
+    window.msCancelAnimationFrame ||
+    window.clearTimeout);
+}
+
+
 utils.captureMouse = function captureMouse(element) {
   const mouse = {
     x: 0,
