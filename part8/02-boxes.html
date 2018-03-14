@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02-boxes</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/box.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const boxes = [];
+      let activeBox = createBox();
+      const gravity = 0.2;
+
+      function createBox() {
+        const box = new Box(Math.random() * 40 + 10, Math.random() * 40 + 10);
+        box.x = Math.random() * canvas.width;
+        boxes.push(box);
+        return box;
+      }
+
+      function drawBox(box) {
+        if (activeBox !== box && utils.intersects(activeBox, box)) {
+          activeBox.y = box.y - activeBox.height;
+          activeBox = createBox();
+        }
+        box.draw(context);
+      }
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        activeBox.vy += gravity;
+        activeBox.y += activeBox.vy;
+
+        if (activeBox.y + activeBox.height > canvas.height) {
+          activeBox.y = canvas.height - activeBox.height;
+          activeBox = createBox();
+        }
+        console.log(boxes);
+        boxes.forEach(drawBox);
+      }());
+    };
+  </script>
+</body>
+</html>
