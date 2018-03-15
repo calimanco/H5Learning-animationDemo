@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05-distance-2</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <textarea id="log" rows="8" cols="80"></textarea>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  window.onload = function () {
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const log = document.getElementById('log');
+    const mouse = utils.captureMouse(canvas);
+    const ballA = new Ball(30);
+    const ballB = new Ball(30);
+
+    ballA.x = canvas.width / 2;
+    ballA.y = canvas.height / 2;
+
+    canvas.addEventListener('mousemove', drawFrame, false);
+    drawFrame();
+
+    function drawFrame() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      ballB.x = mouse.x;
+      ballB.y = mouse.y;
+
+      const dx = ballB.x - ballA.x;
+      const dy = ballB.y - ballA.y;
+      const dist = Math.sqrt(dx ** 2 + dy ** 2);
+
+      if (dist < ballA.radius + ballB.radius) {
+        log.value = 'Hit!';
+      } else {
+        log.value = '';
+      }
+      ballA.draw(context);
+      ballB.draw(context);
+    }
+  };
+  </script>
+</body>
+</html>
