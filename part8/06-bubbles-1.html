@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06-bubbles-1</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  window.onload = function () {
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const centerBall = new Ball(100, '#cccccc');
+    const balls = [];
+    const numBalls = 10;
+    const spring = 0.03;
+    const bounce = -1;
+
+    centerBall.x = canvas.width / 2;
+    centerBall.y = canvas.height / 2;
+
+    for (let ball, i = 0; i < numBalls; i++) {
+      ball = new Ball(Math.random() * 40 + 5, Math.random() * 0xffffff);
+      ball.x = Math.random() * canvas.width / 2;
+      ball.y = Math.random() * canvas.height / 2;
+      ball.vx = Math.random() * 6 - 3;
+      ball.vy = Math.random() * 6 - 3;
+      balls.push(ball);
+    }
+
+    function move(ball) {
+      ball.x += ball.vx;
+      ball.y += ball.vy;
+
+      if (ball.x + ball.radius > canvas.width) {
+        ball.x = canvas.width - ball.radius;
+        ball.vx *= bounce;
+      } else if (ball.x - ball.radius < 0) {
+        ball.x = ball.radius;
+        ball.vx *= bounce;
+      }
+      if (ball.y + ball.radius > canvas.height) {
+        ball.y = canvas.height - ball.radius;
+        ball.vy *= bounce;
+      } else if (ball.y - ball.radius < 0) {
+        ball.y = ball.radius;
+        ball.vy *= bounce;
+      }
+    }
+
+    function draw(ball) {
+      const dx = ball.x - centerBall.x;
+      const dy = ball.y - centerBall.y;
+      const dist = Math.sqrt(dx ** 2 + dy ** 2);
+      const min_dist = ball.radius + centerBall.radius;
+
+      if (dist < min_dist) {
+        const angle = Math.atan2(dy, dx);
+        const tx = centerBall.x + Math.cos(angle) * min_dist;
+        const ty = centerBall.y + Math.sin(angle) * min_dist;
+        ball.vx += (tx - ball.x) * spring;
+        ball.vy += (ty - ball.y) * spring;
+      }
+      ball.draw(context);
+    }
+
+    (function drawFrame() {
+      window.requestAnimationFrame(drawFrame, canvas);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      balls.forEach(move);
+      balls.forEach(draw);
+      centerBall.draw(context);
+    }());
+  };
+  </script>
+</body>
+</html>
