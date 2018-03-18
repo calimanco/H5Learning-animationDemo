@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02-rotate-2</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+  window.onload = function () {
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const ball = new Ball();
+    const vr = 0.05;
+    const cos = Math.cos(vr);
+    const sin = Math.sin(vr);
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    ball.x = Math.random() * canvas.width;
+    ball.y = Math.random() * canvas.height;
+
+    (function drawFrame() {
+      window.requestAnimationFrame(drawFrame, canvas);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      const x1 = ball.x - centerX;
+      const y1 = ball.y - centerY;
+      const x2 = x1 * cos - y1 * sin;
+      const y2 = y1 * cos + x1 * sin;
+
+      ball.x = centerX + x2;
+      ball.y = centerY + y2;
+      ball.draw(context);
+    }());
+  };
+  </script>
+</body>
+</html>
