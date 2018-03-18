@@ -5,6 +5,12 @@
 /* global utils */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "Box" }] */
 class Box {
+  /**
+    * Create a box.
+    * @param {Number} [width=50] - 宽
+    * @param {Number} [height=50] - 高
+    * @param {String} [color='#ff0000'] - 颜色
+    */
   constructor(width = 50, height = 50, color = '#ff0000') {
     this.x = 0;
     this.y = 0;
@@ -18,7 +24,10 @@ class Box {
     this.color = utils.parseColor(color);
     this.lineWidth = 1;
   }
-
+  /**
+   * Draw the box.
+   * @param {Object} _context - The canvas context.
+   */
   draw(_context) {
     const context = _context;
     context.save();
