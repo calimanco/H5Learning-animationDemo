@@ -21,6 +21,7 @@ class Ball {
     this.scaleY = 1;
     this.color = utils.parseColor(color);
     this.lineWidth = 1;
+    this.mass = 1;
   }
   /**
    * Draw the ball.
