@@ -2,6 +2,7 @@
   * 线段类
   * @class Representing a line.
   */
+/* global utils */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "Line" }] */
 class Line {
   /**
@@ -10,8 +11,9 @@ class Line {
     * @param {Number} [y1 = 0] - 开始点y轴坐标
     * @param {Number} [x2 = 0] - 结束点x轴坐标
     * @param {Number} [y2 = 0] - 结束点y轴坐标
+    * @param {String} [color='#000000'] - 颜色
     */
-  constructor(x1 = 0, y1 = 0, x2 = 0, y2 = 0) {
+  constructor(x1 = 0, y1 = 0, x2 = 0, y2 = 0, color = '#000000') {
     this.x = 0;
     this.y = 0;
     this.x1 = x1;
@@ -22,6 +24,7 @@ class Line {
     this.scaleX = 1;
     this.scaleY = 1;
     this.lineWidth = 1;
+    this.color = utils.parseColor(color);
   }
 
   draw(_context) {
@@ -31,6 +34,13 @@ class Line {
     context.rotate(this.rotation);
     context.scale(this.scaleX, this.scaleY);
     context.lineWidth = this.lineWidth;
+    context.strokeStyle = '#ff0000';
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(this.x2, this.y2);
+    context.closePath();
+    context.stroke();
+    context.strokeStyle = this.color;
     context.beginPath();
     context.moveTo(this.x1, this.y1);
     context.lineTo(this.x2, this.y2);
@@ -55,8 +65,8 @@ class Line {
     }
     const sin = Math.sin(this.rotation);
     const cos = Math.cos(this.rotation);
-    const x1r = (cos * this.x1) + (sin * this.y1);
-    const x2r = (cos * this.x2) + (sin * this.y2);
+    const x1r = (cos * this.x1) - (sin * this.y1);
+    const x2r = (cos * this.x2) - (sin * this.y2);
     const y1r = (cos * this.y1) + (sin * this.x1);
     const y2r = (cos * this.y2) + (sin * this.x2);
 
