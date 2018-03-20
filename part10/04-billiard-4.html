@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>04-billiard-4</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball0 = new Ball();
+      const ball1 = new Ball();
+      const bounce = -1;
+
+      ball0.mass = 2;
+      ball0.color = '#00ff00';
+      ball0.x = canvas.width - 200;
+      ball0.y = canvas.height - 200;
+      ball0.vx = Math.random() * 10 - 5;
+      ball0.vy = Math.random() * 10 - 5;
+
+      ball1.mass = 1;
+      ball1.x = 100;
+      ball1.y = 100;
+      ball1.vx = Math.random() * 10 - 5;
+      ball1.vy = Math.random() * 10 - 5;
+
+      function rotate(x, y, sin, cos, reverse) {
+        return {
+          x: (reverse) ? (x * cos + y * sin) : (x * cos - y * sin),
+          y: (reverse) ? (y * cos - x * sin) : (y * cos + x * sin),
+        };
+      }
+
+      function checkCollision() {
+        const dx = ball1.x - ball0.x;
+        const dy = ball1.y - ball0.y;
+        const dist = Math.sqrt(dx ** 2 + dy ** 2);
+
+        // 基于距离的碰撞检测
+        if (dist < ball0.radius + ball1.radius) {
+          // 以ball0为中心点旋转
+          const angle = Math.atan2(dy, dx);
+          const sin = Math.sin(angle);
+          const cos = Math.cos(angle);
+          // ball0在中心点
+          const pos0 = {
+            x: 0,
+            y: 0,
+          };
+          // 依据ball1与ball0的相对距离计算旋转后的坐标（反向）
+          const pos1 = rotate(dx, dy, sin, cos, true);
+          // 旋转ball0的速度（反向）
+          const vel0 = rotate(ball0.vx, ball0.vy, sin, cos, true);
+          // 旋转ball1的速度（反向）
+          const vel1 = rotate(ball1.vx, ball1.vy, sin, cos, true);
+          // 计算相对速度
+          const vxTotal = vel0.x - vel1.x;
+          // 计算相撞后速度
+          vel0.x = ((ball0.mass - ball1.mass) * vel0.x + 2 * ball1.mass * vel1.x) / (ball0.mass + ball1.mass);
+          vel1.x = vxTotal + vel0.x;
+          pos0.x += vel0.x;
+          pos1.x += vel1.x;
+
+          // 回旋位置
+          const pos0F = rotate(pos0.x, pos0.y, sin, cos, false);
+          const pos1F = rotate(pos1.x, pos1.y, sin, cos, false);
+
+          // 将相对ball0位置转换为相对区域位置
+          ball1.x = ball0.x + pos1F.x;
+          ball1.y = ball0.y + pos1F.y;
+          ball0.x += pos0F.x;
+          ball0.y += pos0F.y;
+          // 回旋速度
+          const vel0F = rotate(vel0.x, vel0.y, sin, cos, false);
+          const vel1F = rotate(vel1.x, vel1.y, sin, cos, false);
+          ball0.vx = vel0F.x;
+          ball0.vy = vel0F.y;
+          ball1.vx = vel1F.x;
+          ball1.vy = vel1F.y;
+        }
+      }
+
+      function checkWalls(ball) {
+        if (ball.x + ball.radius > canvas.width) {
+          ball.x = canvas.width - ball.radius;
+          ball.vx *= bounce;
+        } else if (ball.x - ball.radius < 0) {
+          ball.x = ball.radius;
+          ball.vx *= bounce;
+        }
+        if (ball.y + ball.radius > canvas.height) {
+          ball.y = canvas.height - ball.radius;
+          ball.vy *= bounce;
+        } else if (ball.y - ball.radius < 0) {
+          ball.y = ball.radius;
+          ball.vy *= bounce;
+        }
+      }
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        ball0.x += ball0.vx;
+        ball0.y += ball0.vy;
+        ball1.x += ball1.vx;
+        ball1.y += ball1.vy;
+
+        checkCollision();
+        checkWalls(ball0);
+        checkWalls(ball1);
+
+        ball0.draw(context);
+        ball1.draw(context);
+      }());
+    };
+  </script>
+</body>
+
+</html>
