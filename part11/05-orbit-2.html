@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05-orbit-2</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/ball.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const particles = [];
+      const numParticles = 2;
+      const sun = new Ball(100, '#ffff00');
+      const planet = new Ball(10, '#00ff00');
+
+      sun.x = canvas.width / 2;
+      sun.y = canvas.height / 2;
+      sun.mass = 10000;
+      particles.push(sun);
+
+      planet.x = canvas.width / 2 + 200;
+      planet.y = canvas.height / 2;
+      planet.vy = 6;
+      planet.mass = 1;
+      particles.push(planet);
+
+      function draw(particle) {
+        particle.draw(context);
+      }
+      function gravitate(partA, partB) {
+        const dx = partB.x - partA.x;
+        const dy = partB.y - partA.y;
+        const distSQ = dx ** 2 + dy ** 2;
+        const dist = Math.sqrt(distSQ);
+        const force = partA.mass * partB.mass / distSQ;
+        const ax = force * dx / dist;
+        const ay = force * dy / dist;
+        partA.vx += ax / partA.mass;
+        partA.vy += ay / partA.mass;
+        partB.vx -= ax / partB.mass;
+        partB.vy -= ay / partB.mass;
+      }
+      function move(partA, i) {
+        partA.x += partA.vx;
+        partA.y += partA.vy;
+
+        for (let partB, j = i + 1; j < numParticles; j++) {
+          const partB = particles[j];
+          gravitate(partA, partB);
+        }
+      }
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+
+        particles.forEach(move);
+        particles.forEach(draw);
+      }());
+    };
+  </script>
+</body>
+
+</html>
