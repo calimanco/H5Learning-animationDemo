@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>01-one-segment</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/segment.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const segment0 = new Segment(100, 20);
+      const mouse = utils.captureMouse(canvas);
+
+      segment0.x = canvas.width / 2;
+      segment0.y = canvas.height / 2;
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        const dx = mouse.x - segment0.x;
+        const dy = mouse.y - segment0.y;
+        segment0.rotation = Math.atan2(dy, dx);
+        segment0.draw(context);
+      }());
+    };
+  </script>
+</body>
+
+</html>

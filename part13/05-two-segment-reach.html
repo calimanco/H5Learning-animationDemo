@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05-two-segment-reach</title>
+  <link rel="stylesheet" href="../common/style.css">
+</head>
+
+<body>
+  <canvas id="canvas" width="400" height="400"></canvas>
+  <script src="../common/utils.js" charset="utf-8"></script>
+  <script src="../common/segment.js" charset="utf-8"></script>
+  <script type="text/javascript">
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const segment0 = new Segment(100, 20);
+      const segment1 = new Segment(100, 20);
+      const mouse = utils.captureMouse(canvas);
+
+      segment1.x = canvas.width / 2;
+      segment1.y = canvas.height / 2;
+
+      function reach(segment, xpos, ypos) {
+        const dx = xpos - segment.x;
+        const dy = ypos - segment.y;
+
+        segment.rotation = Math.atan2(dy, dx);
+        const w = segment.getPin().x - segment.x;
+        const h = segment.getPin().y - segment.y;
+
+        return {
+          x: xpos - w,
+          y: ypos - h,
+        };
+      }
+
+      function position(segmentA, segmentB) {
+        segmentA.x = segmentB.getPin().x;
+        segmentA.y = segmentB.getPin().y;
+      }
+
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        const target = reach(segment0, mouse.x, mouse.y);
+        reach(segment1, target.x, target.y);
+        position(segment0, segment1);
+
+        segment0.draw(context);
+        segment1.draw(context);
+      }());
+    };
+  </script>
+</body>
+
+</html>
