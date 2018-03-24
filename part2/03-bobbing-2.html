@@ -14,6 +14,9 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 一个上下运动的球（可调参数版）
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -33,7 +36,7 @@
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        ball.y = clientY / 2 + Math.sin(angle) * range;
+        ball.y = clientY + Math.sin(angle) * range;
         angle += speed;
         ball.draw(context);
       }());
