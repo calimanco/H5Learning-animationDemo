@@ -14,6 +14,9 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 一个会跟踪鼠标位置的箭头
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -33,9 +36,6 @@
         arrow.draw(context);
       }());
     };
-    for (let angle = 0; angle < Math.PI * 2; angle += 0.1) {
-      console.log(Math.sin(angle));
-    }
   </script>
 </body>
 
