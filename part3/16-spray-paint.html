@@ -13,31 +13,48 @@
   <canvas id="canvas" width="640" height="360"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 鼠标喷漆工具
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const mouse = utils.captureMouse(canvas);
+      // 获得整个画布区域的ImageData对象
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      // 取出像素数据
       const pixels = imageData.data;
+      // 设定笔刷大小
       const brush_size = 25;
+      // 设定笔刷密度
       const brush_density = 80;
+      // 笔刷的颜色变量
       let brush_color;
 
       function onMouseMove() {
+        // 根据设定的笔刷密度生成随机像素点
         for (let i = 0; i < brush_density; i++) {
+          // 随机像素点角度相对于鼠标的角度
           const angle = Math.random() * Math.PI * 2;
+          // 根据设定的笔刷大小，随机像素点以鼠标为圆心的半径
           const radius = Math.random() * brush_size;
+          // 计算出像素点的x轴相对坐标
           const xpos = (mouse.x + Math.cos(angle) * radius) | 0;
+          // 计算出像素点的y轴相对坐标
           const ypos = (mouse.y + Math.sin(angle) * radius) | 0;
+          // 算出该像素点在pixels中的偏移量
           const offset = (xpos + ypos * imageData.width) * 4;
+          // 对这个像素点的颜色数据进行操作，将颜色分解成三基色
           pixels[offset] = brush_color >> 16 & 0xff;
           pixels[offset + 1] = brush_color >> 8 & 0xff;
           pixels[offset + 2] = brush_color & 0xff;
           pixels[offset + 3] = 255;
         }
+        // 重新绘制区域
         context.putImageData(imageData, 0, 0);
       }
       canvas.addEventListener('mousedown', () => {
+        // 随机一个颜色
         brush_color = utils.parseColor(Math.random() * 0xffffff, true);
         canvas.addEventListener('mousemove', onMouseMove, false);
       }, false);

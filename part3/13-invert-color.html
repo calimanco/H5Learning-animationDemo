@@ -13,10 +13,14 @@
   <canvas id="canvas" width="400" height="400"></canvas>
   <button type="button" name="button" onclick="change()">点我变色</button>
   <script type="text/javascript">
+    /**
+     * 演示反色变化
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
 
+      // 绘制色块，每个色块宽10像素，高等于画布高，铺满画布
       for (let i = 0; i < canvas.width; i += 10) {
         context.fillStyle = (i % 20 === 0) ? '#f00' : ((i % 30 === 0) ? '#0f0' : '#00f');
         context.fillRect(i, 0, 10, canvas.height);
@@ -26,14 +30,18 @@
     function change() {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
+      // 获取整个画布的ImageData对象
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+      // 取出颜色数据
       const pixels = imageData.data;
-
+      // 遍历颜色数据求每个颜色的反色
       for (let offset = 0, len = pixels.length; offset < len; offset += 4) {
         pixels[offset] = 255 - pixels[offset];
         pixels[offset + 1] = 255 - pixels[offset + 1];
         pixels[offset + 2] = 255 - pixels[offset + 2];
+        // 这里没有操作透明度
       }
+      // 将ImageData重新绘制到画布上
       context.putImageData(imageData, 0, 0);
     }
   </script>
