@@ -14,30 +14,41 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 往鼠标方向加速的箭头
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const mouse = utils.captureMouse(canvas);
       const arrow = new Arrow();
+      // 初始化速度
       let vx = 0;
       let vy = 0;
+      // 设定加速度
       const force = 0.02;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+        // 计算鼠标与箭头的相对距离
         const dx = mouse.x - arrow.x;
         const dy = mouse.y - arrow.y;
+        // 求箭头指向鼠标的夹角
         const angle = Math.atan2(dy, dx);
+        // 将加速度分解到x轴和y轴
         const ax = Math.cos(angle) * force;
         const ay = Math.sin(angle) * force;
-
+        // 设置箭头的角度
         arrow.rotation = angle;
+        // 将分解后的加速度加到箭头的两轴速度上
         vx += ax;
         vy += ay;
+        // 将分解后的速度加到箭头的两轴位置上
         arrow.x += vx;
         arrow.y += vy;
+        // 重新绘制箭头
         arrow.draw(context);
       }());
     };

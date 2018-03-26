@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +8,56 @@
   <title>08-spring-4</title>
   <link rel="stylesheet" href="../common/style.css">
 </head>
+
 <body>
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
-  <script src="../common/ball.js" charset="utf-8"></script>
+  <script src="../common/Arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 往鼠标方向弹动的箭头
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
-      const ball = new Ball();
-      const spring = 0.03;
-      const friction = 0.9;
       const mouse = utils.captureMouse(canvas);
+      const arrow = new Arrow();
+      // 设定弹动系数
+      const spring = 0.02;
+      // 初始化速度
       let vx = 0;
       let vy = 0;
-
+      // 削减系数
+      const friction = 0.9;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        const dx = mouse.x - ball.x;
-        const dy = mouse.y - ball.y;
+        // 计算鼠标与箭头的相对距离
+        const dx = mouse.x - arrow.x;
+        const dy = mouse.y - arrow.y;
+        // 求箭头指向鼠标的夹角
+        const angle = Math.atan2(dy, dx);
+        // 根据距离弹动
         const ax = dx * spring;
         const ay = dy * spring;
-
+        // 设置箭头的角度
+        arrow.rotation = angle;
+        // 将分解后的加速度加到箭头的两轴速度上
         vx += ax;
         vy += ay;
-
+        // 削减速度
         vx *= friction;
         vy *= friction;
-
-        ball.x += vx;
-        ball.y += vy;
-        ball.draw(context);
+        // 将分解后的速度加到箭头的两轴位置上
+        arrow.x += vx;
+        arrow.y += vy;
+        // 重新绘制箭头
+        arrow.draw(context);
       }());
     };
   </script>
 </body>
+
 </html>

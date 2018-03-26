@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,45 @@
   <title>04-ease-tomouse</title>
   <link rel="stylesheet" href="../common/style.css">
 </head>
+
 <body>
   <canvas id="canvas" width="400" height="400"></canvas>
-  <textarea id="log" rows="8" cols="80"></textarea>
   <script src="../common/utils.js" charset="utf-8"></script>
-  <script src="../common/ball.js" charset="utf-8"></script>
+  <script src="../common/arrow.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 、缓动到鼠标位置的箭头
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const mouse = utils.captureMouse(canvas);
-      const ball = new Ball();
+      const arrow = new Arrow();
+      // 比例系数
       const easing = 0.05;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
 
-        const vx = (mouse.x - ball.x) * easing;
-        const vy = (mouse.y - ball.y) * easing;
-
-        ball.x += vx;
-        ball.y += vy;
-        ball.draw(context);
+        // 计算鼠标与箭头的相对距离
+        const dx = mouse.x - arrow.x;
+        const dy = mouse.y - arrow.y;
+        // 求箭头指向鼠标的夹角
+        const angle = Math.atan2(dy, dx);
+        // 根据距离缓动
+        const vx = dx * easing;
+        const vy = dy * easing;
+        // 设置箭头的角度
+        arrow.rotation = angle;
+        // 将分解后的速度加到箭头的两轴位置上
+        arrow.x += vx;
+        arrow.y += vy;
+        // 重新绘制箭头
+        arrow.draw(context);
       }());
     };
   </script>
 </body>
+
 </html>
