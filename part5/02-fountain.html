@@ -15,6 +15,9 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 彩色喷泉
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -34,16 +37,22 @@
       }
 
       function draw(ball) {
+        // 依据球的速度改变球的位置，这里包含了伪重力
         ball.vy += gravity;
         ball.x += ball.vx;
         ball.y += ball.vy;
+        // 检测是否越界
         if (ball.x - ball.radius > canvas.width || ball.x + ball.radius < 0 || ball.y - ball.radius > canvas.height || ball.y + ball.radius < 0) {
+          // 重置ball的位置
           ball.x = canvas.width / 2;
           ball.y = canvas.height;
+          // 重置ball的速度
           ball.vx = Math.random() * 6 - 3;
           ball.vy = Math.random() * -10 - 10;
+          // 打印提示
           log.value = `Reset ${ball.id}\n`;
         }
+        // 画球
         ball.draw(context);
       }
       (function drawFrame() {

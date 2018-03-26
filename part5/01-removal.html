@@ -15,6 +15,9 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 清除越界圆
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -33,10 +36,14 @@
       }
 
       function draw(ball, pos) {
+        // 依据球的速度改变球的位置
         ball.x += ball.vx;
         ball.y += ball.vy;
+        // 检查是否越界
         if (ball.x - ball.radius > canvas.width || ball.x + ball.radius < 0 || ball.y - ball.radius > canvas.height || ball.y + ball.radius < 0) {
+          // 在数组中清除越界的球
           balls.splice(pos, 1);
+          // 打印提示
           if (balls.length > 0) {
             log.value += `Removed ${ball.id}\n`;
             log.scrollTop = log.scrollHeight;
@@ -44,6 +51,7 @@
             log.value += 'All gone!\n';
           }
         }
+        // 画球
         ball.draw(context);
       }
       (function drawFrame() {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,16 @@
   <title>01-object-hit-test</title>
   <link rel="stylesheet" href="../common/style.css">
 </head>
+
 <body>
   <canvas id="canvas" width="400" height="400"></canvas>
   <textarea id="log" rows="8" cols="80"></textarea>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 两个矩形碰撞检测演示
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -44,4 +49,5 @@
     };
   </script>
 </body>
+
 </html>
