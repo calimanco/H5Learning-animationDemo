@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,15 @@
   <title>07-friction-2</title>
   <link rel="stylesheet" href="../common/style.css">
 </head>
+
 <body>
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 模拟摩擦力简便计算
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -25,9 +30,9 @@
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
         context.clearRect(0, 0, canvas.width, canvas.height);
-        const speed = Math.sqrt(vx ** 2 + vy ** 2);
-        const angle = Math.atan2(vy, vx);
+        // 判断速度大小以减少不必要的计算
         if (Math.abs(vx) > 0.001) {
+          // 减少速度
           vx *= friction;
           ball.x += vx;
         }
@@ -40,4 +45,5 @@
     };
   </script>
 </body>
+
 </html>
