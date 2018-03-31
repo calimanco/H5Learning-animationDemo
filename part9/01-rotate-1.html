@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,31 +8,45 @@
   <title>01-rotate-1</title>
   <link rel="stylesheet" href="../common/style.css">
 </head>
+
 <body>
   <canvas id="canvas" width="400" height="400"></canvas>
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
-  window.onload = function () {
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    const ball = new Ball();
-    const vr = 0.05;
-    let angle = 0;
-    const radius = 150;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
+    /**
+     * 简单坐标旋转演示
+     * */
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const ball = new Ball();
+      ball.x = 300;
+      ball.y = 200;
+      // 弧度变化速度
+      const vr = 0.05;
+      // 中心点位置设定在画布中心
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      // ball相对与中心点的距离
+      const dx = ball.x - centerX;
+      const dy = ball.y - centerY;
+      // ball相对与中心点的弧度
+      let angle = Math.atan2(dy, dx);
+      // 旋转半径
+      const radius = Math.sqrt(dx ** 2 + dy ** 2);
 
-    (function drawFrame() {
-      window.requestAnimationFrame(drawFrame, canvas);
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      (function drawFrame() {
+        window.requestAnimationFrame(drawFrame, canvas);
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
-      ball.x = centerX + Math.cos(angle) * radius;
-      ball.y = centerY + Math.sin(angle) * radius;
-      angle += vr;
-      ball.draw(context);
-    }());
-  };
+        ball.x = centerX + Math.cos(angle) * radius;
+        ball.y = centerY + Math.sin(angle) * radius;
+        angle += vr;
+        ball.draw(context);
+      }());
+    };
   </script>
 </body>
+
 </html>

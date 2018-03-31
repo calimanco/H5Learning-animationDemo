@@ -15,18 +15,24 @@
   <script src="../common/ball.js" charset="utf-8"></script>
   <script src="../common/line.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 斜面反弹示例
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const ball = new Ball();
-      const line = new Line(0, 0, 300, 0);
+      // line类构造函数参数（开始点x轴坐标，开始点y轴坐标，结束点x轴坐标，结束点y轴坐标）
+      const line = new Line(0, 0, 500, 0);
+      // 设置重力加速度
       const gravity = 0.2;
+      // 设置反弹系数
       const bounce = -0.6;
 
       ball.x = 100;
       ball.y = 100;
 
-      line.x = 50;
+      line.x = 0;
       line.y = 200;
       line.rotation = 10 * Math.PI / 180;
 
