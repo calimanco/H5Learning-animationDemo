@@ -14,6 +14,9 @@
   <script src="../common/utils.js" charset="utf-8"></script>
   <script src="../common/ball.js" charset="utf-8"></script>
   <script type="text/javascript">
+    /**
+     * 双轴碰撞
+     * */
     window.onload = function () {
       const canvas = document.getElementById('canvas');
       const context = canvas.getContext('2d');
@@ -34,13 +37,14 @@
       ball1.vx = Math.random() * 10 - 5;
       ball1.vy = Math.random() * 10 - 5;
 
+      // 坐标旋转函数
       function rotate(x, y, sin, cos, reverse) {
         return {
           x: (reverse) ? (x * cos + y * sin) : (x * cos - y * sin),
           y: (reverse) ? (y * cos - x * sin) : (y * cos + x * sin),
         };
       }
-
+      // 检查碰撞
       function checkCollision() {
         const dx = ball1.x - ball0.x;
         const dy = ball1.y - ball0.y;
@@ -68,6 +72,7 @@
           // 计算相撞后速度
           vel0.x = ((ball0.mass - ball1.mass) * vel0.x + 2 * ball1.mass * vel1.x) / (ball0.mass + ball1.mass);
           vel1.x = vxTotal + vel0.x;
+          // 计算相撞后位置
           pos0.x += vel0.x;
           pos1.x += vel1.x;
 
@@ -89,7 +94,7 @@
           ball1.vy = vel1F.y;
         }
       }
-
+      // 边界检测
       function checkWalls(ball) {
         if (ball.x + ball.radius > canvas.width) {
           ball.x = canvas.width - ball.radius;
